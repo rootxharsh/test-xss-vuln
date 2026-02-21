@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import VulnerableComponent from './VulnerableComponent';
+import ContentRenderer from './ContentRenderer';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <div className="output-area">
             <h3>Rendered Output:</h3>
             <VulnerableComponent htmlContent={userInput} />
+            <ContentRenderer htmlContent={userInput} />
           </div>
         </div>
       </header>
