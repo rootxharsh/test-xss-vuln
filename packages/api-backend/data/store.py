@@ -161,6 +161,7 @@ TEAM: list[dict] = [
     {"id": "lena-kovac", "name": "Lena Kovac", "role": "DevOps Lead",              "initials": "LK"},
 ]
 
-# ── In-memory contact store (swap for a DB in production) ────────────────────
+# ── In-memory stores (swap for a DB in production) ───────────────────────────
 
 contact_submissions: list[dict] = []
+users: list[dict] = []

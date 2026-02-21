@@ -14,7 +14,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from routers import contact, projects, services, stats, team
+from routers import auth, contact, projects, services, stats, team
 
 # ── App ───────────────────────────────────────────────────────────────────────
 
@@ -46,6 +46,7 @@ app.include_router(services.router)
 app.include_router(projects.router)
 app.include_router(team.router)
 app.include_router(contact.router)
+app.include_router(auth.router)
 
 # ── Error handlers ────────────────────────────────────────────────────────────
 
@@ -93,6 +94,8 @@ def root():
             "GET  /api/v1/team",
             "GET  /api/v1/team/{id}",
             "POST /api/v1/contact",
+            "POST /api/v1/auth/signup",
+            "POST /api/v1/auth/login",
         ],
     }
 
