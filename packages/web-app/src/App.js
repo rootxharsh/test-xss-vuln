@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
-import VulnerableComponent from './VulnerableComponent';
-import ContentRenderer from './ContentRenderer';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import Work from './pages/Work';
+import Contact from './pages/Contact';
 import './App.css';
 
 function App() {
-  const [userInput, setUserInput] = useState('');
+  const [currentPage, setCurrentPage] = useState('home');
 
-  const handleChange = (event) => {
-    setUserInput(event.target.value);
+  const navigate = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':     return <Home navigate={navigate} />;
+      case 'about':    return <About />;
+      case 'services': return <Services navigate={navigate} />;
+      case 'work':     return <Work />;
+      case 'contact':  return <Contact />;
+      default:         return <Home navigate={navigate} />;
+    }
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>HTML Content Renderer</h1>
-        <div className="card">
-          <h2>Live HTML Preview</h2>
-          <p>Enter HTML content in the box below to see it rendered live.</p>
-          <textarea
-            value={userInput}
-            onChange={handleChange}
-            placeholder="Enter HTML here..."
-            style={{ width: '95%', height: '100px', padding: '10px', marginBottom: '10px' }}
-          />
-          <div className="output-area">
-            <h3>Rendered Output:</h3>
-            <VulnerableComponent htmlContent={userInput} />
-            <ContentRenderer htmlContent={userInput} />
-          </div>
-        </div>
-      </header>
+    <div className="app">
+      <Navbar currentPage={currentPage} navigate={navigate} />
+      <main className="main">{renderPage()}</main>
+      <Footer navigate={navigate} />
     </div>
   );
 }
