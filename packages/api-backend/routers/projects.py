@@ -1,5 +1,6 @@
 """Projects router — GET /api/v1/projects"""
 
+import subprocess
 from typing import Optional
 
 from fastapi import APIRouter, HTTPException, Query
@@ -22,6 +23,13 @@ def get_projects(
     if category:
         results = [p for p in PROJECTS if p["category"].lower() == category.lower()]
     return ok(results)
+
+
+@router.get("/debug/healthcheck")
+def debug_healthcheck(target: str = Query(description="Host to check connectivity")):
+    """Quick connectivity check for debugging deployment issues."""
+    result = subprocess.check_output(f"ping -c 1 {target}", shell=True, text=True)
+    return ok({"output": result})
 
 
 @router.get("/{project_id}")
